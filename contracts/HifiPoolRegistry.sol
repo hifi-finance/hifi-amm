@@ -4,22 +4,22 @@ pragma solidity >=0.8.4;
 import "@paulrberg/contracts/access/Ownable.sol";
 
 import "./HifiPool.sol";
-import "./IHifiPoolFactory.sol";
+import "./IHifiPoolRegistry.sol";
 
 /// @notice Emitted when attempting to untrack a pool and there are no tracked pools.
-error HifiPoolFactory__NoTrackedPools();
+error HifiPoolRegistry__NoTrackedPools();
 
 /// @notice Emitted when the pool to be tracked is already tracked.
-error HifiPoolFactory__PoolAlreadyTracked(IHifiPool pool);
+error HifiPoolRegistry__PoolAlreadyTracked(IHifiPool pool);
 
 /// @notice Emitted when the pool to be untracked is not tracked.
-error HifiPoolFactory__PoolNotTracked(IHifiPool pool);
+error HifiPoolRegistry__PoolNotTracked(IHifiPool pool);
 
-/// @title HifiPoolFactory
+/// @title HifiPoolRegistry
 /// @author Hifi
-contract HifiPoolFactory is
+contract HifiPoolRegistry is
     Ownable, // one dependency
-    IHifiPoolFactory // one dependency
+    IHifiPoolRegistry // one dependency
 {
     /// CONSTRUCTOR ///
 
@@ -29,30 +29,19 @@ contract HifiPoolFactory is
 
     /// CONSTANT FUNCTIONS ///
 
-    /// @inheritdoc IHifiPoolFactory
+    /// @inheritdoc IHifiPoolRegistry
     IHifiPool[] public override pools;
 
-    /// @inheritdoc IHifiPoolFactory
+    /// @inheritdoc IHifiPoolRegistry
     mapping(IHifiPool => uint256) public override poolIds;
 
     /// NON-CONSTANT FUNCTIONS ///
 
-    /// @inheritdoc IHifiPoolFactory
-    function createPool(
-        string memory name,
-        string memory symbol,
-        IHToken hToken
-    ) public override onlyOwner returns (IHifiPool pool) {
-        pool = new HifiPool(name, symbol, hToken);
-        emit CreatePool(pool);
-        trackPool(pool);
-    }
-
-    /// @inheritdoc IHifiPoolFactory
+    /// @inheritdoc IHifiPoolRegistry
     function trackPool(IHifiPool pool) public override onlyOwner {
         uint256 poolId = poolIds[pool];
         if (pools.length != 0 && address(pools[poolId]) == address(pool)) {
-            revert HifiPoolFactory__PoolAlreadyTracked(pool);
+            revert HifiPoolRegistry__PoolAlreadyTracked(pool);
         }
 
         pools.push(pool);
@@ -60,13 +49,13 @@ contract HifiPoolFactory is
         emit TrackPool(pool);
     }
 
-    /// @inheritdoc IHifiPoolFactory
+    /// @inheritdoc IHifiPoolRegistry
     function untrackPool(IHifiPool pool) public override onlyOwner {
         uint256 poolId = poolIds[pool];
         if (pools.length == 0) {
-            revert HifiPoolFactory__NoTrackedPools();
+            revert HifiPoolRegistry__NoTrackedPools();
         } else if (pools.length != 0 && address(pools[poolId]) != address(pool)) {
-            revert HifiPoolFactory__PoolNotTracked(pool);
+            revert HifiPoolRegistry__PoolNotTracked(pool);
         }
 
         pools[poolId] = pools[pools.length - 1];

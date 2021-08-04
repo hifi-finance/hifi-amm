@@ -11,10 +11,10 @@ export enum HifiPoolErrors {
   VirtualHTokenReservesOverflow = "HifiPool__VirtualHTokenReservesOverflow",
 }
 
-export enum HifiPoolFactoryErrors {
-  NoTrackedPools = "HifiPoolFactory__NoTrackedPools",
-  PoolAlreadyTracked = "HifiPoolFactory__PoolAlreadyTracked",
-  PoolNotTracked = "HifiPoolFactory__PoolNotTracked",
+export enum HifiPoolRegistryErrors {
+  NoTrackedPools = "HifiPoolRegistry__NoTrackedPools",
+  PoolAlreadyTracked = "HifiPoolRegistry__PoolAlreadyTracked",
+  PoolNotTracked = "HifiPoolRegistry__PoolNotTracked",
 }
 
 export enum PRBMathUD60x18Errors {

@@ -1,13 +1,8 @@
-import shouldBehaveLikeCreatePool from "./effects/createPool";
 import shouldBehaveLikeTrackPool from "./effects/trackPool";
 import shouldBehaveLikeUntrackPool from "./effects/untrackPool";
 
-export function shouldBehaveLikeHifiPoolFactory(): void {
+export function shouldBehaveLikeHifiPoolRegistry(): void {
   describe("Effects Functions", function () {
-    describe("createPool", function () {
-      shouldBehaveLikeCreatePool();
-    });
-
     describe("trackPool", function () {
       shouldBehaveLikeTrackPool();
     });

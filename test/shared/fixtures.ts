@@ -3,12 +3,12 @@ import { MockContract } from "ethereum-waffle";
 import hre from "hardhat";
 import { Artifact } from "hardhat/types";
 
-import { GodModeHifiPoolFactory } from "../../typechain";
+import { GodModeHifiPoolRegistry } from "../../typechain";
 import { GodModeErc20 } from "../../typechain/GodModeErc20";
 import { GodModeHifiPool } from "../../typechain/GodModeHifiPool";
 import { GodModeHToken } from "../../typechain/GodModeHToken";
 import { YieldSpaceMock } from "../../typechain/YieldSpaceMock";
-import { deployGodModeHToken, deployHifiPool, deployHifiPoolFactory, deployUsdc } from "./deployers";
+import { deployGodModeHToken, deployHifiPool, deployHifiPoolRegistry, deployUsdc } from "./deployers";
 import { deployMockHToken, deployMockHifiPool, deployMockUsdc } from "./mocks";
 
 const { deployContract } = hre.waffle;
@@ -41,19 +41,19 @@ export async function unitFixtureHifiPool(signers: Signer[]): Promise<UnitFixtur
   return { hToken, hifiPool, underlying };
 }
 
-type UnitFixtureHifiPoolFactoryReturnType = {
+type UnitFixtureHifiPoolRegistryReturnType = {
   hToken: MockContract;
   hifiPool: MockContract;
-  hifiPoolFactory: GodModeHifiPoolFactory;
+  hifiPoolRegistry: GodModeHifiPoolRegistry;
 };
 
-export async function unitFixtureHifiPoolFactory(signers: Signer[]): Promise<UnitFixtureHifiPoolFactoryReturnType> {
+export async function unitFixtureHifiPoolRegistry(signers: Signer[]): Promise<UnitFixtureHifiPoolRegistryReturnType> {
   const deployer: Signer = signers[0];
   const underlying: MockContract = await deployMockUsdc(deployer);
   const hToken: MockContract = await deployMockHToken(deployer, underlying.address);
   const hifiPool: MockContract = await deployMockHifiPool(deployer, hToken.address, underlying.address);
-  const hifiPoolFactory: GodModeHifiPoolFactory = await deployHifiPoolFactory(deployer);
-  return { hToken, hifiPool, hifiPoolFactory };
+  const hifiPoolRegistry: GodModeHifiPoolRegistry = await deployHifiPoolRegistry(deployer);
+  return { hToken, hifiPool, hifiPoolRegistry };
 }
 
 type UnitFixtureYieldSpaceReturnType = {
