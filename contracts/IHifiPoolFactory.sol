@@ -14,6 +14,20 @@ interface IHifiPoolFactory {
 
     event UntrackPool(IHifiPool indexed pool);
 
+    /// CONSTANT FUNCTIONS ///
+
+    /// @notice Array of all created AMM pools.
+    ///
+    /// @param index The reference of the pool.
+    /// @return The referenced pool.
+    function pools(uint256 index) external view returns (IHifiPool);
+
+    /// @notice Maps AMM pools to their reference in the array of pools.
+    ///
+    /// @param pool The pool for which reference to return.
+    /// @return The reference of the pool.
+    function poolIds(IHifiPool pool) external view returns (uint256);
+
     /// NON-CONSTANT FUNCTIONS ///
 
     /// @notice Creates a new AMM pool.

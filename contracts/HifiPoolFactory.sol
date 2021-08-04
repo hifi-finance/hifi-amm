@@ -5,7 +5,6 @@ import "@paulrberg/contracts/access/Ownable.sol";
 
 import "./HifiPool.sol";
 import "./IHifiPoolFactory.sol";
-import "./SHifiPoolFactory.sol";
 
 /// @notice Emitted when the pool to be tracked is already tracked.
 error HifiPoolFactory__PoolAlreadyTracked(IHifiPool pool);
@@ -17,14 +16,21 @@ error HifiPoolFactory__PoolNotTracked(IHifiPool pool);
 /// @author Hifi
 contract HifiPoolFactory is
     Ownable, // one dependency
-    IHifiPoolFactory, // one dependency
-    SHifiPoolFactory // one dependency
+    IHifiPoolFactory // one dependency
 {
     /// CONSTRUCTOR ///
 
     constructor() Ownable() {
         // solhint-disable-previous-line no-empty-blocks
     }
+
+    /// CONSTANT FUNCTIONS ///
+
+    /// @inheritdoc IHifiPoolFactory
+    IHifiPool[] public override pools;
+
+    /// @inheritdoc IHifiPoolFactory
+    mapping(IHifiPool => uint256) public override poolIds;
 
     /// NON-CONSTANT FUNCTIONS ///
 
