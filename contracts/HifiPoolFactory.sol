@@ -12,6 +12,9 @@ error HifiPoolFactory__PoolAlreadyTracked(IHifiPool pool);
 /// @notice Emitted when the pool to be untracked is not tracked.
 error HifiPoolFactory__PoolNotTracked(IHifiPool pool);
 
+/// @notice Emitted when attempting to untrack a pool and there are no tracked pools.
+error HifiPoolFactory__NoTrackedPools();
+
 /// @title HifiPoolFactory
 /// @author Hifi
 contract HifiPoolFactory is
@@ -48,7 +51,7 @@ contract HifiPoolFactory is
     /// @inheritdoc IHifiPoolFactory
     function trackPool(IHifiPool pool) public override onlyOwner {
         uint256 poolId = poolIds[pool];
-        if (address(pools[poolId]) == address(pool)) {
+        if (pools.length != 0 && address(pools[poolId]) == address(pool)) {
             revert HifiPoolFactory__PoolAlreadyTracked(pool);
         }
 
@@ -60,7 +63,9 @@ contract HifiPoolFactory is
     /// @inheritdoc IHifiPoolFactory
     function untrackPool(IHifiPool pool) public override onlyOwner {
         uint256 poolId = poolIds[pool];
-        if (address(pools[poolId]) != address(pool)) {
+        if (pools.length == 0) {
+            revert HifiPoolFactory__NoTrackedPools();
+        } else if (pools.length != 0 && address(pools[poolId]) != address(pool)) {
             revert HifiPoolFactory__PoolNotTracked(pool);
         }
 

@@ -24,3 +24,4 @@ export const UNDERLYING_PRECISION_SCALAR: BigNumber = bn("1e12");
 export const USDC_DECIMALS: string = "6";
 export const USDC_NAME: string = "USD Coin";
 export const USDC_SYMBOL: string = "USDC";
+export const ZERO_ADDRESS: string = "0x0000000000000000000000000000000000000000";

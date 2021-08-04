@@ -12,7 +12,7 @@ import {
   USDC_NAME,
   USDC_SYMBOL,
 } from "../../helpers/constants";
-import { GodModeHToken } from "../../typechain";
+import { GodModeHToken, GodModeHifiPoolFactory } from "../../typechain";
 import { GodModeErc20 } from "../../typechain/GodModeErc20";
 import { GodModeHifiPool } from "../../typechain/GodModeHifiPool";
 
@@ -45,4 +45,12 @@ export async function deployHifiPool(deployer: Signer, hTokenAddress: string): P
     await deployContract(deployer, hifiPoolArtifact, [HIFI_POOL_NAME, HIFI_POOL_SYMBOL, hTokenAddress])
   );
   return hifiPool;
+}
+
+export async function deployHifiPoolFactory(deployer: Signer): Promise<GodModeHifiPoolFactory> {
+  const hifiPoolFactoryArtifact: Artifact = await artifacts.readArtifact("GodModeHifiPoolFactory");
+  const hifiPoolFactory: GodModeHifiPoolFactory = <GodModeHifiPoolFactory>(
+    await deployContract(deployer, hifiPoolFactoryArtifact)
+  );
+  return hifiPoolFactory;
 }

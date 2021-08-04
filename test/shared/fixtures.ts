@@ -3,12 +3,13 @@ import { MockContract } from "ethereum-waffle";
 import hre from "hardhat";
 import { Artifact } from "hardhat/types";
 
+import { GodModeHifiPoolFactory } from "../../typechain";
 import { GodModeErc20 } from "../../typechain/GodModeErc20";
 import { GodModeHifiPool } from "../../typechain/GodModeHifiPool";
 import { GodModeHToken } from "../../typechain/GodModeHToken";
 import { YieldSpaceMock } from "../../typechain/YieldSpaceMock";
-import { deployGodModeHToken, deployHifiPool, deployUsdc } from "./deployers";
-import { deployMockHToken, deployMockUsdc } from "./mocks";
+import { deployGodModeHToken, deployHifiPool, deployHifiPoolFactory, deployUsdc } from "./deployers";
+import { deployMockHToken, deployMockHifiPool, deployMockUsdc } from "./mocks";
 
 const { deployContract } = hre.waffle;
 
@@ -38,6 +39,21 @@ export async function unitFixtureHifiPool(signers: Signer[]): Promise<UnitFixtur
   const hToken: MockContract = await deployMockHToken(deployer, underlying.address);
   const hifiPool: GodModeHifiPool = await deployHifiPool(deployer, hToken.address);
   return { hToken, hifiPool, underlying };
+}
+
+type UnitFixtureHifiPoolFactoryReturnType = {
+  hToken: MockContract;
+  hifiPool: MockContract;
+  hifiPoolFactory: GodModeHifiPoolFactory;
+};
+
+export async function unitFixtureHifiPoolFactory(signers: Signer[]): Promise<UnitFixtureHifiPoolFactoryReturnType> {
+  const deployer: Signer = signers[0];
+  const underlying: MockContract = await deployMockUsdc(deployer);
+  const hToken: MockContract = await deployMockHToken(deployer, underlying.address);
+  const hifiPool: MockContract = await deployMockHifiPool(deployer, hToken.address, underlying.address);
+  const hifiPoolFactory: GodModeHifiPoolFactory = await deployHifiPoolFactory(deployer);
+  return { hToken, hifiPool, hifiPoolFactory };
 }
 
 type UnitFixtureYieldSpaceReturnType = {
