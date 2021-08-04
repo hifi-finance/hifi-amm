@@ -6,14 +6,14 @@ import "@paulrberg/contracts/access/Ownable.sol";
 import "./HifiPool.sol";
 import "./IHifiPoolFactory.sol";
 
+/// @notice Emitted when attempting to untrack a pool and there are no tracked pools.
+error HifiPoolFactory__NoTrackedPools();
+
 /// @notice Emitted when the pool to be tracked is already tracked.
 error HifiPoolFactory__PoolAlreadyTracked(IHifiPool pool);
 
 /// @notice Emitted when the pool to be untracked is not tracked.
 error HifiPoolFactory__PoolNotTracked(IHifiPool pool);
-
-/// @notice Emitted when attempting to untrack a pool and there are no tracked pools.
-error HifiPoolFactory__NoTrackedPools();
 
 /// @title HifiPoolFactory
 /// @author Hifi

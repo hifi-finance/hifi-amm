@@ -11,6 +11,12 @@ export enum HifiPoolErrors {
   VirtualHTokenReservesOverflow = "HifiPool__VirtualHTokenReservesOverflow",
 }
 
+export enum HifiPoolFactoryErrors {
+  NoTrackedPools = "HifiPoolFactory__NoTrackedPools",
+  PoolAlreadyTracked = "HifiPoolFactory__PoolAlreadyTracked",
+  PoolNotTracked = "HifiPoolFactory__PoolNotTracked",
+}
+
 export enum PRBMathUD60x18Errors {
   Exp2InputTooBig = "PRBMathUD60x18__Exp2InputTooBig",
   FromUintOverflow = "PRBMathUD60x18__FromUintOverflow",
