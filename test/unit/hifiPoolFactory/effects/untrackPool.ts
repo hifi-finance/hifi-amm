@@ -11,9 +11,9 @@ export default function shouldBehaveLikeUntrackPool(): void {
     });
 
     it("untracks pool", async function () {
-      await expect(
-        this.contracts.hifiPoolFactory.connect(this.signers.admin).untrackPool(this.mocks.hifiPool.address),
-      ).to.emit(this.contracts.hifiPoolFactory, "UntrackPool");
+      await expect(this.contracts.hifiPoolFactory.connect(this.signers.admin).untrackPool(this.mocks.hifiPool.address))
+        .to.emit(this.contracts.hifiPoolFactory, "UntrackPool")
+        .withArgs(this.mocks.hifiPool.address);
     });
   });
 

@@ -7,9 +7,9 @@ import { HifiPoolFactoryErrors } from "../../../shared/errors";
 export default function shouldBehaveLikeTrackPool(): void {
   context("when called to track an untracked pool", function () {
     it("tracks the new pool", async function () {
-      await expect(
-        this.contracts.hifiPoolFactory.connect(this.signers.admin).trackPool(this.mocks.hifiPool.address),
-      ).to.emit(this.contracts.hifiPoolFactory, "TrackPool");
+      await expect(this.contracts.hifiPoolFactory.connect(this.signers.admin).trackPool(this.mocks.hifiPool.address))
+        .to.emit(this.contracts.hifiPoolFactory, "TrackPool")
+        .withArgs(this.mocks.hifiPool.address);
 
       expect(await this.contracts.hifiPoolFactory.pools(0)).to.be.eq(this.mocks.hifiPool.address);
     });
