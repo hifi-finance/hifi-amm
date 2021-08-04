@@ -20,6 +20,12 @@ contract HifiPoolFactory is
     IHifiPoolFactory, // one dependency
     SHifiPoolFactory // one dependency
 {
+    /// CONSTRUCTOR ///
+
+    constructor() Ownable() {
+        // solhint-disable-previous-line no-empty-blocks
+    }
+
     /// NON-CONSTANT FUNCTIONS ///
 
     /// @inheritdoc IHifiPoolFactory
