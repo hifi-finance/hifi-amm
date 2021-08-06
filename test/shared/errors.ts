@@ -12,7 +12,6 @@ export enum HifiPoolErrors {
 }
 
 export enum HifiPoolRegistryErrors {
-  NoTrackedPools = "HifiPoolRegistry__NoTrackedPools",
   PoolAlreadyTracked = "HifiPoolRegistry__PoolAlreadyTracked",
   PoolNotTracked = "HifiPoolRegistry__PoolNotTracked",
 }

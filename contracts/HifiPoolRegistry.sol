@@ -3,11 +3,8 @@ pragma solidity >=0.8.4;
 
 import "@paulrberg/contracts/access/Ownable.sol";
 
-import "./HifiPool.sol";
+import "./IHifiPool.sol";
 import "./IHifiPoolRegistry.sol";
-
-/// @notice Emitted when attempting to untrack a pool and there are no tracked pools.
-error HifiPoolRegistry__NoTrackedPools();
 
 /// @notice Emitted when the pool to be tracked is already tracked.
 error HifiPoolRegistry__PoolAlreadyTracked(IHifiPool pool);
@@ -53,7 +50,7 @@ contract HifiPoolRegistry is
     function untrackPool(IHifiPool pool) public override onlyOwner {
         uint256 poolId = poolIds[pool];
         if (pools.length == 0) {
-            revert HifiPoolRegistry__NoTrackedPools();
+            revert HifiPoolRegistry__PoolNotTracked(pool);
         } else if (pools.length != 0 && address(pools[poolId]) != address(pool)) {
             revert HifiPoolRegistry__PoolNotTracked(pool);
         }
