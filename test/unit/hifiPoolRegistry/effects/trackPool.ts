@@ -11,7 +11,7 @@ export default function shouldBehaveLikeTrackPool(): void {
         .to.emit(this.contracts.hifiPoolRegistry, "TrackPool")
         .withArgs(this.mocks.hifiPool.address);
 
-      expect(await this.contracts.hifiPoolRegistry.pools(0)).to.be.eq(this.mocks.hifiPool.address);
+      expect(await this.contracts.hifiPoolRegistry.poolIsTracked(this.mocks.hifiPool.address)).to.be.eq(true);
     });
   });
 
