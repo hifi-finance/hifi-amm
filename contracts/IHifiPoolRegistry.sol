@@ -14,17 +14,11 @@ interface IHifiPoolRegistry {
 
     /// CONSTANT FUNCTIONS ///
 
-    /// @notice Array of all created AMM pools.
-    ///
-    /// @param index The reference of the pool.
-    /// @return The referenced pool.
-    function pools(uint256 index) external view returns (IHifiPool);
-
-    /// @notice Maps AMM pools to their reference in the array of pools.
+    /// @notice Whether the AMM pool is being tracked or not.
     ///
     /// @param pool The pool for which reference to return.
-    /// @return The reference of the pool.
-    function poolIds(IHifiPool pool) external view returns (uint256);
+    /// @return bool true = pool is tracked, otherwise not.
+    function poolIsTracked(IHifiPool pool) external view returns (bool);
 
     /// NON-CONSTANT FUNCTIONS ///
 

@@ -7,17 +7,15 @@ import "../HifiPoolRegistry.sol";
 /// @author Hifi
 /// @dev Strictly for test purposes. Do not use in production.
 contract GodModeHifiPoolRegistry is HifiPoolRegistry {
-    function __godMode_setPools(IHifiPool[] calldata pools_) external {
-        pools = pools_;
+    function __godMode_trackPools(IHifiPool[] calldata pools_) external {
         for (uint256 i; i < pools_.length; i++) {
-            poolIds[pools[i]] = i;
+            poolIsTracked[pools_[i]] = true;
         }
     }
 
-    function __godMode_resetPools() external {
-        for (uint256 i; i < pools.length; i++) {
-            poolIds[pools[i]] = 0;
+    function __godMode_untrackPools(IHifiPool[] calldata pools_) external {
+        for (uint256 i; i < pools_.length; i++) {
+            poolIsTracked[pools_[i]] = false;
         }
-        delete pools;
     }
 }
